@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#090b0d">
+  <meta name="description" content="Centro personal de hábitos, enfoque y progreso.">
+  <title>Solo Leveling Akenoo</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Navegación principal">
+      <a class="brand" href="#today" aria-label="Solo Leveling Akenoo, inicio">
+        <span class="brand-mark">AK</span>
+        <span><strong>SOLO LEVELING</strong><small>AKENOO</small></span>
+      </a>
+
+      <nav class="nav-list">
+        <button class="nav-item active" data-view="today" aria-label="Hoy">
+          <svg aria-hidden="true"><use href="#i-bolt"/></svg><span>Hoy</span>
+        </button>
+        <button class="nav-item" data-view="month" aria-label="Mes">
+          <svg aria-hidden="true"><use href="#i-calendar"/></svg><span>Mes</span>
+        </button>
+        <button class="nav-item" data-view="progress" aria-label="Progreso">
+          <svg aria-hidden="true"><use href="#i-chart"/></svg><span>Progreso</span>
+        </button>
+        <button class="nav-item" data-view="journal" aria-label="Bitácora">
+          <svg aria-hidden="true"><use href="#i-book"/></svg><span>Bitácora</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-foot">
+        <div class="sync-card">
+          <span class="status-dot" id="syncDot"></span>
+          <div><strong id="syncTitle">Modo local</strong><small id="syncText">Listo para conectar</small></div>
+        </div>
+        <button class="nav-item" data-view="settings" aria-label="Configuración">
+          <svg aria-hidden="true"><use href="#i-settings"/></svg><span>Configuración</span>
+        </button>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow" id="dateLabel">MIÉRCOLES, 24 JUN</p>
+          <h1 id="viewTitle">Arise.</h1>
+        </div>
+        <div class="top-actions">
+          <button class="icon-button" id="refreshBtn" title="Sincronizar" aria-label="Sincronizar">
+            <svg aria-hidden="true"><use href="#i-refresh"/></svg>
+          </button>
+          <button class="avatar-button" data-view="settings" aria-label="Abrir configuración">AK</button>
+        </div>
+      </header>
+
+      <section class="view active" id="view-today" data-title="Arise.">
+        <div class="hero-grid">
+          <article class="progress-hero panel">
+            <div class="hero-copy">
+              <p class="eyebrow">PULSO DE HOY</p>
+              <h2><span id="heroDone">0</span> de <span id="heroTotal">0</span> compromisos</h2>
+              <p id="heroMessage">Empieza por una acción pequeña. El ritmo llega después.</p>
+              <button class="primary-button" id="focusBtn"><svg aria-hidden="true"><use href="#i-play"/></svg>Iniciar enfoque</button>
+            </div>
+            <div class="progress-ring" id="dailyRing" style="--progress:0">
+              <div><strong id="dailyPercent">0%</strong><span>completado</span></div>
+            </div>
+          </article>
+
+          <article class="streak-panel panel">
+            <div class="panel-heading"><div><p class="eyebrow">RACHA ACTUAL</p><h2><span id="bestStreak">0</span> días</h2></div><span class="signal-icon">↗</span></div>
+            <div class="week-strip" id="weekStrip"></div>
+            <p class="muted" id="streakMessage">Tu constancia aparecerá aquí.</p>
+          </article>
+        </div>
+
+        <div class="content-grid">
+          <section class="habits-section">
+            <div class="section-heading">
+              <div><p class="eyebrow">LISTA DE IMPACTO</p><h2>Compromisos de hoy</h2></div>
+              <button class="secondary-button" id="addHabitBtn"><svg aria-hidden="true"><use href="#i-plus"/></svg>Nuevo</button>
+            </div>
+            <div class="habit-list" id="habitList" aria-live="polite"></div>
+          </section>
+
+          <aside class="side-stack">
+            <article class="panel area-card">
+              <div class="panel-heading"><div><p class="eyebrow">EQUILIBRIO</p><h3>Áreas activas</h3></div></div>
+              <div id="areaBars" class="area-bars"></div>
+            </article>
+            <article class="panel quote-card">
+              <span class="quote-mark">“</span>
+              <blockquote id="dailyQuote">No necesitas sentirte listo. Necesitas empezar.</blockquote>
+              <p>RECORDATORIO DEL DÍA</p>
+            </article>
+            <button class="journal-quick" id="journalQuickBtn">
+              <svg aria-hidden="true"><use href="#i-pen"/></svg>
+              <span><strong>Cerrar el día</strong><small>Escribe una nota breve</small></span>
+              <span>→</span>
+            </button>
+          </aside>
+        </div>
+      </section>
+
+      <section class="view" id="view-month" data-title="El mapa del mes.">
+        <div class="section-heading month-heading">
+          <div><p class="eyebrow">CONSTANCIA VISIBLE</p><h2 id="monthTitle">Junio 2026</h2></div>
+          <div class="month-controls">
+            <button class="icon-button" id="prevMonth" aria-label="Mes anterior">‹</button>
+            <button class="secondary-button" id="currentMonth">Hoy</button>
+            <button class="icon-button" id="nextMonth" aria-label="Mes siguiente">›</button>
+          </div>
+        </div>
+        <article class="panel calendar-panel">
+          <div class="calendar-weekdays"><span>LUN</span><span>MAR</span><span>MIÉ</span><span>JUE</span><span>VIE</span><span>SÁB</span><span>DOM</span></div>
+          <div class="calendar-grid" id="calendarGrid"></div>
+        </article>
+        <div class="month-summary" id="monthSummary"></div>
+      </section>
+
+      <section class="view" id="view-progress" data-title="Prueba de avance.">
+        <div class="metric-grid" id="metricGrid"></div>
+        <div class="analytics-grid">
+          <article class="panel chart-panel">
+            <div class="panel-heading"><div><p class="eyebrow">ÚLTIMOS 14 DÍAS</p><h2>Ritmo general</h2></div><span class="chart-legend"><i></i>Cumplimiento</span></div>
+            <div class="bar-chart" id="barChart"></div>
+          </article>
+          <article class="panel ranking-panel">
+            <div class="panel-heading"><div><p class="eyebrow">FORTALEZAS</p><h2>Por hábito</h2></div></div>
+            <div id="habitRanking"></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="view" id="view-journal" data-title="Tu propia evidencia.">
+        <div class="section-heading">
+          <div><p class="eyebrow">BITÁCORA</p><h2>Registro personal</h2></div>
+          <button class="primary-button" id="newJournalBtn"><svg aria-hidden="true"><use href="#i-pen"/></svg>Nueva entrada</button>
+        </div>
+        <div class="journal-grid" id="journalGrid"></div>
+      </section>
+
+      <section class="view" id="view-settings" data-title="Hazlo tuyo.">
+        <div class="settings-grid">
+            <article class="panel settings-card">
+            <p class="eyebrow">IDENTIDAD</p><h2>Tu centro</h2>
+            <label>Nombre visible<input id="profileName" value="Solo Leveling Akenoo" maxlength="32"></label>
+            <label>Frase de entrada<input id="profileMotto" value="Arise." maxlength="48"></label>
+            <button class="primary-button" id="saveProfile">Guardar cambios</button>
+          </article>
+          <article class="panel settings-card">
+            <p class="eyebrow">GOOGLE SHEETS</p><h2>Sincronización</h2>
+            <p class="muted">Pega la URL de implementación y el token configurado en Apps Script.</p>
+            <label>URL de Apps Script<input id="apiUrl" type="url" placeholder="https://script.google.com/macros/s/…/exec"></label>
+            <label>Token privado<input id="apiToken" type="password" placeholder="Tu token"></label>
+            <div class="button-row"><button class="primary-button" id="connectBtn">Probar conexión</button><button class="secondary-button" id="disconnectBtn">Usar local</button></div>
+            <p class="form-status" id="connectionStatus"></p>
+          </article>
+          <article class="panel settings-card danger-zone">
+            <p class="eyebrow">DATOS LOCALES</p><h2>Herramientas</h2>
+            <p class="muted">Exporta un respaldo JSON o restaura los datos de demostración.</p>
+            <div class="button-row"><button class="secondary-button" id="exportBtn">Exportar</button><button class="danger-button" id="resetBtn">Restaurar demo</button></div>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <nav class="mobile-nav" aria-label="Navegación móvil">
+      <button class="nav-item active" data-view="today"><svg><use href="#i-bolt"/></svg><span>Hoy</span></button>
+      <button class="nav-item" data-view="month"><svg><use href="#i-calendar"/></svg><span>Mes</span></button>
+      <button class="nav-item" data-view="progress"><svg><use href="#i-chart"/></svg><span>Progreso</span></button>
+      <button class="nav-item" data-view="journal"><svg><use href="#i-book"/></svg><span>Bitácora</span></button>
+    </nav>
+  </div>
+
+  <dialog id="habitDialog">
+    <form method="dialog" id="habitForm">
+      <div class="dialog-head"><div><p class="eyebrow">NUEVO COMPROMISO</p><h2>Agrega un hábito</h2></div><button class="icon-button" value="cancel" aria-label="Cerrar">×</button></div>
+      <label>Nombre<input name="name" required maxlength="42" placeholder="Ej. Practicar automatización"></label>
+      <label>Área<select name="area"><option>Físico</option><option>Mente</option><option>Profesional</option><option>Proyecto</option><option>Bienestar</option><option>AutoCap</option><option>Orden</option><option>Social</option></select></label>
+      <label>Meta semanal<select name="target"><option value="7">Todos los días</option><option value="6">6 días</option><option value="5" selected>5 días</option><option value="4">4 días</option><option value="3">3 días</option><option value="2">2 días</option><option value="1">1 día</option></select></label>
+      <label>Prioridad<select name="priority"><option value="alta">Alta</option><option value="media" selected>Media</option><option value="baja">Baja</option></select></label>
+      <label>Descripción<textarea name="description" maxlength="220" rows="3" placeholder="Qué significa cumplir este compromiso."></textarea></label>
+      <label class="check-label"><input name="requiredForStreak" type="checkbox">Cuenta como clave para racha estricta</label>
+      <div class="dialog-actions"><button class="secondary-button" value="cancel">Cancelar</button><button class="primary-button" value="default">Agregar hábito</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="journalDialog">
+    <form method="dialog" id="journalForm">
+      <div class="dialog-head"><div><p class="eyebrow">CIERRE DEL DÍA</p><h2>Deja evidencia</h2></div><button class="icon-button" value="cancel" aria-label="Cerrar">×</button></div>
+      <label>Estado de ánimo<select name="mood"><option value="En calma">En calma</option><option value="Con fuerza">Con fuerza</option><option value="Cansado">Cansado</option><option value="Difícil">Día difícil</option></select></label>
+      <label>Nivel de energía<select name="energy"><option value="5">5 - Alto</option><option value="4">4 - Bien</option><option value="3" selected>3 - Medio</option><option value="2">2 - Bajo</option><option value="1">1 - Mínimo</option></select></label>
+      <label>¿Cómo me sentí?<textarea name="text" maxlength="500" rows="3" placeholder="Resumen honesto del día."></textarea></label>
+      <label>¿Qué avancé?<textarea name="advanced" maxlength="360" rows="2" placeholder="Evidencia concreta."></textarea></label>
+      <label>¿Qué me estorbó?<textarea name="blocked" maxlength="360" rows="2" placeholder="Obstáculo o patrón detectado."></textarea></label>
+      <label>¿Qué aprendí?<textarea name="learned" maxlength="360" rows="2" placeholder="Idea útil para repetir o corregir."></textarea></label>
+      <label>¿Qué haré mañana?<textarea name="next" maxlength="360" rows="2" placeholder="Siguiente acción concreta."></textarea></label>
+      <div class="dialog-actions"><button class="secondary-button" value="cancel">Cancelar</button><button class="primary-button" value="default">Guardar entrada</button></div>
+    </form>
+  </dialog>
+
+  <div class="toast" id="toast" role="status"></div>
+
+  <svg class="svg-sprite" aria-hidden="true">
+    <symbol id="i-bolt" viewBox="0 0 24 24"><path d="m13 2-9 12h8l-1 8 9-12h-8z"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><path d="M7 2v3M17 2v3M3 9h18M5 4h14a2 2 0 0 1 2 2v14H3V6a2 2 0 0 1 2-2Z"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 3h13a2 2 0 0 1 2 2v16H6a2 2 0 0 1-2-2ZM4 17a2 2 0 0 1 2-2h13"/></symbol>
+    <symbol id="i-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-2.8 2.8-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6v.2h-4V21a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1L4.2 17l.1-.1a1.7 1.7 0 0 0 .3-1.9A1.7 1.7 0 0 0 3 14H2.8v-4H3a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9L4.2 7 7 4.2l.1.1a1.7 1.7 0 0 0 1.9.3A1.7 1.7 0 0 0 10 3V2.8h4V3a1.7 1.7 0 0 0 1 1.6 1.7 1.7 0 0 0 1.9-.3l.1-.1L19.8 7l-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.6 1h.2v4H21a1.7 1.7 0 0 0-1.6 1Z"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 7v5h-5M4 17v-5h5M6.1 8A7 7 0 0 1 19 10M17.9 16A7 7 0 0 1 5 14"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="m8 5 11 7-11 7Z"/></symbol>
+    <symbol id="i-pen" viewBox="0 0 24 24"><path d="m15 5 4 4M4 20l1-5L16 4l4 4L9 19Z"/></symbol>
+  </svg>
+  <script src="app.js" defer></script>
+</body>
+</html>
